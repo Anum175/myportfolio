@@ -1,0 +1,300 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<body>
+<style>
+    .btn-custom {
+        background-color: #4a5568;
+        color: white;
+        border: none;
+    }
+
+    .btn-custom:hover {
+        background-color: #495057;
+        color: white;
+    }
+
+    .btn-danger {
+        background-color: #e53e3e;
+        color: white;
+        border: none;
+    }
+
+    .btn-danger:hover {
+        background-color: #c53030;
+        color: white;
+    }
+
+    .section-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .section-header h2 {
+        margin: 0;
+    }
+
+    .tool-card {
+        border: 1px solid #4a5568;
+        border-radius: .375rem;
+        box-shadow: 0 0 .125rem rgba(0, 0, 0, .075);
+        padding: 1rem;
+        text-align: center;
+        background-color: #f8f9fa;
+    }
+
+    .tool-card img {
+        max-height: 80px;
+        margin-bottom: 1rem;
+    }
+
+    .tool-card h5 {
+        margin: 0;
+        font-size: 1.25rem;
+        color: #4a5568;
+    }
+</style>
+
+<div class="container mt-5">
+    <!-- About Section -->
+    <section id="about">
+        <div class="section-header">
+            <h2>About Me</h2>
+        </div><br>
+        <div class="row">
+            <div class="col-md-4">
+                <img src="{% static 'anum.jpeg' %}" alt="About Me" class="img-fluid rounded">
+            </div>
+            <div class="col-md-8">
+                <p>
+                    I am Anum Saleem, a dedicated and driven individual with a profound passion for coding, data science, and web development. My journey in technology is fueled by an insatiable curiosity and a commitment to continuous learning. With a strong foundation in programming, I have honed my skills in data science and machine learning, focusing on applying these disciplines to tackle real-world challenges.
+                    <br><br>
+                    My experience spans various domains, including developing dynamic and responsive web applications, creating robust machine learning models, and exploring the intricacies of deep learning. I have successfully led projects that involve data analysis, model training, and the deployment of full-stack applications, always aiming for innovation and excellence.
+                    <br><br>
+                    Beyond the technical skills, I bring a problem-solving mindset and a deep enthusiasm for exploring new technologies. Whether it's building a Netflix clone, automating complex tasks with Selenium, or developing a binary classification model using VGG16, I approach every project with creativity and precision. I am always eager to take on new challenges, learn from them, and push the boundaries of what’s possible.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="mt-5">
+        <div class="section-header">
+            <h2>Skills</h2>
+            <button class="btn btn-custom" onclick="toggleSection('skills')">Add Skill</button>
+            <button class="btn btn-danger" onclick="submitDeleteForm('skills')">Delete Selected</button>
+        </div>
+        <div id="skills-content" class="section-content" style="display: none;">
+            <form method="post" class="mb-3">
+                {% csrf_token %}
+                <div class="input-group">
+                    <input type="text" name="skill_name" class="form-control" placeholder="Enter a new skill" required>
+                    <button type="submit" class="btn btn-success">Add</button>
+                </div>
+            </form>
+        </div>
+        <form id="skills-delete-form" method="post" action="{% url 'delete_skills' %}">
+            {% csrf_token %}
+            <div id="skills-list">
+                {% for skill in skills %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="skills_to_delete" value="{{ skill.id }}">
+                        <label class="form-check-label">{{ skill.name }}</label>
+                    </div>
+                {% endfor %}
+            </div>
+        </form>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="mt-5">
+        <div class="section-header">
+            <h2>Projects</h2>
+            <button class="btn btn-custom" onclick="toggleSection('projects')">Add Project</button>
+            <button class="btn btn-danger" onclick="submitDeleteForm('projects')">Delete Selected</button>
+        </div><br>
+        <div id="projects-content" class="section-content" style="display: none;">
+            <form method="post" class="mb-3">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <input type="text" name="project_name" class="form-control" placeholder="Project Name" required>
+                </div>
+                <div class="mb-3">
+                    <textarea name="project_description" class="form-control" placeholder="Project Description" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-success">Add Project</button>
+            </form>
+        </div>
+        <form id="projects-delete-form" method="post" action="{% url 'delete_projects' %}">
+            {% csrf_token %}
+            <div id="projects-list">
+                {% for project in projects %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="projects_to_delete" value="{{ project.id }}">
+                        <label class="form-check-label">{{ project.title }}</label>
+                    </div>
+                {% endfor %}
+            </div>
+        </form>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="mt-5">
+        <div class="section-header">
+            <h2>Education</h2>
+            <button class="btn btn-custom" onclick="toggleSection('education')">Add Education</button>
+            <button class="btn btn-danger" onclick="submitDeleteForm('education')">Delete Selected</button>
+        </div><br>
+        <div id="education-content" class="section-content" style="display: none;">
+            <form method="post" class="mb-3">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <input type="text" name="degree" class="form-control" placeholder="Degree" required>
+                </div>
+                <div class="mb-3">
+                    <input type="text" name="institution" class="form-control" placeholder="Institution" required>
+                </div>
+                <div class="mb-3">
+                    <input type="text" name="year" class="form-control" placeholder="Year" required>
+                </div>
+                <button type="submit" class="btn btn-success">Add Education</button>
+            </form>
+        </div>
+        <form id="education-delete-form" method="post" action="{% url 'delete_education' %}">
+            {% csrf_token %}
+            <div id="education-list">
+                {% for edu in education %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="education_to_delete" value="{{ edu.id }}">
+                        <label class="form-check-label">{{ edu.degree }} - {{ edu.institution }} ({{ edu.year }})</label>
+                    </div>
+                {% endfor %}
+            </div>
+        </form>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="mt-5">
+        <div class="section-header">
+            <h2>Experience</h2>
+            <button class="btn btn-custom" onclick="toggleSection('experience')">Add Experience</button>
+            <button class="btn btn-danger" onclick="submitDeleteForm('experience')">Delete Selected</button>
+        </div><br>
+        <div id="experience-content" class="section-content" style="display: none;">
+            <form method="post" class="mb-3">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <input type="text" name="position" class="form-control" placeholder="Position" required>
+                </div>
+                <div class="mb-3">
+                    <input type="text" name="company" class="form-control" placeholder="Company" required>
+                </div>
+                <div class="mb-3">
+                    <input type="text" name="duration" class="form-control" placeholder="Duration" required>
+                </div>
+                <button type="submit" class="btn btn-success">Add Experience</button>
+            </form>
+        </div>
+        <form id="experience-delete-form" method="post" action="{% url 'delete_experience' %}">
+            {% csrf_token %}
+            <div id="experience-list">
+                {% for exp in experience %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="experience_to_delete" value="{{ exp.id }}">
+                        <label class="form-check-label">{{ exp.position }} at {{ exp.company }} ({{ exp.duration }})</label>
+                    </div>
+                {% endfor %}
+            </div>
+        </form>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certifications" class="mt-5">
+        <div class="section-header">
+            <h2>Certifications</h2>
+            <button class="btn btn-custom" onclick="toggleSection('certifications')">Add Certification</button>
+            <button class="btn btn-danger" onclick="submitDeleteForm('certifications')">Delete Selected</button>
+        </div><br>
+        <div id="certifications-content" class="section-content" style="display: none;">
+            <form method="post" class="mb-3">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <input type="text" name="certification_name" class="form-control" placeholder="Certification Name" required>
+                </div>
+                <div class="mb-3">
+                    <input type="text" name="certification_provider" class="form-control" placeholder="Certification Provider" required>
+                </div>
+                <button type="submit" class="btn btn-success">Add Certification</button>
+            </form>
+        </div>
+        <form id="certifications-delete-form" method="post" action="{% url 'delete_certifications' %}">
+            {% csrf_token %}
+            <div id="certifications-list">
+                {% for cert in certifications %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="certifications_to_delete" value="{{ cert.id }}">
+                        <label class="form-check-label">{{ cert.name }} - {{ cert.description }} </label>
+                    </div>
+                {% endfor %}
+            </div>
+        </form>
+    </section>
+
+    <!-- Tools Section -->
+<!-- Tools Section -->
+<section id="tools" class="mt-5">
+    <div class="section-header">
+        <h2>Tools</h2>
+        <button class="btn btn-custom" onclick="toggleSection('tools')">Add Tool</button>
+        <button class="btn btn-danger" onclick="submitDeleteForm('tools')">Delete Selected</button>
+    </div><br>
+    <div id="tools-content" class="section-content" style="display: none;">
+        <form method="post" class="mb-3" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3">
+                <input type="text" name="tool_name" class="form-control" placeholder="Tool Name" required>
+            </div>
+            <div class="mb-3">
+                <input type="file" name="tool_logo" class="form-control" accept="image/*">
+            </div>
+            <button type="submit" class="btn btn-success">Add Tool</button>
+        </form>
+    </div>
+    <form id="tools-delete-form" method="post" action="{% url 'delete_tools' %}">
+        {% csrf_token %}
+        <div id="tools-list">
+            {% for tool in tools %}
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="tools_to_delete" value="{{ tool.id }}">
+                    <label class="form-check-label">
+                        {{ tool.name }}
+                        {% if tool.logo %}
+                            <img src="{{ tool.logo.url }}" alt="{{ tool.name }}" style="max-height: 50px;">
+                        {% endif %}
+                    </label>
+                </div>
+            {% endfor %}
+        </div>
+    </form>
+</section>
+
+</div>
+
+<script>
+    function toggleSection(sectionName) {
+        var section = document.getElementById(sectionName + '-content');
+        if (section.style.display === 'none' || section.style.display === '') {
+            section.style.display = 'block';
+        } else {
+            section.style.display = 'none';
+        }
+    }
+
+    function submitDeleteForm(sectionName) {
+        document.getElementById(sectionName + '-delete-form').submit();
+    }
+</script>
+</body>
+{% endblock %}

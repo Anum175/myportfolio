@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<body>
+<style>
+    .btn-custom {
+        background-color: #4a5568;
+        color: white;
+        border: none;
+    }
+
+    .btn-custom:hover {
+        background-color: #495057;
+        color: white;
+    }
+
+    .section-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .section-header h2 {
+        margin: 0;
+    }
+
+    .tool-card {
+        border: 1px solid #4a5568;
+        border-radius: .375rem;
+        box-shadow: 0 0 .125rem rgba(0, 0, 0, .075);
+        padding: 1rem;
+        text-align: center;
+        background-color: #f8f9fa;
+    }
+
+    .tool-card img {
+        max-height: 80px;
+        margin-bottom: 1rem;
+    }
+
+    .tool-card h5 {
+        margin: 0;
+        font-size: 1.25rem;
+        color: #4a5568;
+    }
+</style>
+
+<div class="container mt-5">
+    <!-- About Section -->
+    <section id="about">
+        <div class="section-header">
+            <h2>About Me</h2>
+        </div><br>
+        <div class="row">
+            <div class="col-md-4">
+                <img src="{% static 'anum.jpeg' %}" alt="About Me" class="img-fluid rounded">
+            </div>
+            <div class="col-md-8">
+                <p>
+                    I am Anum Saleem, a dedicated and driven individual with a profound passion for coding, data science, and web development. My journey in technology is fueled by an insatiable curiosity and a commitment to continuous learning. With a strong foundation in programming, I have honed my skills in data science and machine learning, focusing on applying these disciplines to tackle real-world challenges.
+                    <br><br>
+                    My experience spans various domains, including developing dynamic and responsive web applications, creating robust machine learning models, and exploring the intricacies of deep learning. I have successfully led projects that involve data analysis, model training, and the deployment of full-stack applications, always aiming for innovation and excellence.
+                    <br><br>
+                    Beyond the technical skills, I bring a problem-solving mindset and a deep enthusiasm for exploring new technologies. Whether it's building a Netflix clone, automating complex tasks with Selenium, or developing a binary classification model using VGG16, I approach every project with creativity and precision. I am always eager to take on new challenges, learn from them, and push the boundaries of what’s possible.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="mt-5">
+        <div class="section-header">
+            <h2>Skills</h2>
+        </div>
+        <div id="skills-list">
+            {% for skill in skills %}
+                <span class="skill-item">{{ skill.name }}</span>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="mt-5">
+        <div class="section-header">
+            <h2>Projects</h2>
+        </div><br>
+        <div id="projects-list">
+            {% for project in projects %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ project.title }}</h5>
+                        <p class="card-text">{{ project.description }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="mt-5">
+        <div class="section-header">
+            <h2>Education</h2>
+        </div><br>
+        <div id="education-list">
+            {% for edu in education %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ edu.title }}</h5>
+                        <p class="card-text">{{ edu.description }} - {{ edu.year }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="mt-5">
+        <div class="section-header">
+            <h2>Experience</h2>
+        </div><br>
+        <div id="experience-list">
+            {% for exp in experience %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ exp.position }}</h5>
+                        <p class="card-text">{{ exp.company }} - {{ exp.duration }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certifications" class="mt-5">
+        <div class="section-header">
+            <h2>Certifications</h2>
+        </div><br>
+        <div id="certifications-list">
+            {% for cert in certifications %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ cert.title }} </h5>
+                        <p class="card-text">{{ cert.description }} </p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Tools Section -->
+  <!-- Tools Section -->
+<section id="tools" class="mt-5">
+    <div class="section-header">
+        <h2>Tools</h2>
+    </div><br>
+    <div id="tools-list" class="row">
+        {% for tool in tools %}
+            <div class="col-md-4 col-sm-6">
+                <div class="tool-card">
+                    <!-- Ensure the correct static file path -->
+{% if tool.logo %}
+                            <img src="{{ tool.logo.url }}" alt="{{ tool.name }}" style="max-height: 50px;">
+                        {% endif %}                    <h5 class="tool-title">{{ tool.name }}</h5>
+                </div><br>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+</div>
+
+<!-- Bootstrap JS and Popper.js -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+
+<script>
+    function toggleSection(sectionName) {
+        var content = document.getElementById(sectionName + '-content');
+        if (content.style.display === 'none' || content.style.display === '') {
+            content.style.display = 'block';
+        } else {
+            content.style.display = 'none';
+        }
+    }
+</script>
+</body>
+{% endblock %}

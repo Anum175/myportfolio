@@ -1,0 +1,108 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anum Saleem - Portfolio</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        .skill-item {
+            display: inline-block;
+            border: 2px solid #4a5568;
+            padding: 5px 10px;
+            margin: 5px;
+            border-radius: 5px;
+        }
+        .section-content {
+            display: none;
+        }
+        .navbar {
+            background-color: #343a40; /* Dark background color */
+        }
+        .navbar .navbar-brand,
+        .navbar .nav-link {
+            color: white; /* White text color */
+        }
+        .navbar .nav-link:hover {
+            color: #d1d1d1; /* Light grey color on hover */
+        }
+        /* Ensure the content is not hidden behind the fixed navbar */
+        body {
+            padding-top: 56px; /* Adjust this value based on the height of your navbar */
+        }
+    </style>
+</head>
+<body>
+    <!-- Fixed Responsive Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Anum Saleem</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#skills">Skills</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#projects">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#education">Education</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#experience">Experience</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#certifications">Certifications</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#tools">Tools</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="footer text-center mt-5">
+        <div class="container">
+            <ul class="list-unstyled social-icons">
+                <li class="d-inline mx-2">
+                    <a href="https://facebook.com" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                </li>
+                <li class="d-inline mx-2">
+                    <a href="https://twitter.com" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
+                </li>
+                <li class="d-inline mx-2">
+                    <a href="https://instagram.com" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                </li>
+                <li class="d-inline mx-2">
+                    <a href="https://www.linkedin.com/in/anum-saleem-5b2a3729a/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </li>
+                <li class="d-inline mx-2">
+                    <a href="https://github.com/Anum175" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                </li>
+            </ul>
+            <p>&copy; 2024 Anum Saleem Website. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
